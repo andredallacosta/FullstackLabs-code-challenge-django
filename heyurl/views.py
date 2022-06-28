@@ -36,10 +36,16 @@ def store(request):
     return HttpResponse("Storing a new URL object into storage")
 
 
-def short_url(request, short_url):
+def get_url_object(short_url):
     try:
-        url_instance = Url.objects.get(short_url=short_url)
+        return Url.objects.get(short_url=short_url)
     except Url.DoesNotExist:
+        return None
+
+
+def short_url(request, short_url):
+    url_instance = get_url_object(short_url)
+    if not url_instance:
         context = {'url': short_url}
         return render(request, 'heyurl/short_url_not_found.html', context)
 

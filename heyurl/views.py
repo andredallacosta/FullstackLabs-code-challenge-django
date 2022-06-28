@@ -38,4 +38,18 @@ def store(request):
 
 def short_url(request, short_url):
     # FIXME: Do the logging to the db of the click with the user agent and browser
+    try:
+        url_instance = Url.objects.get(short_url=short_url)
+    except Url.DoesNotExist:
+        return HttpResponse("URL not found")
+
+    url_instance.clicks += 1
+    url_instance.save()
+
+    Click.objects.create(
+        url=url_instance,
+        browser=(request.user_agent.browser.family + ' ' + request.user_agent.browser.version_string).strip(),
+        platform=(request.user_agent.os.family + ' ' + request.user_agent.os.version_string).strip()
+    )
+
     return HttpResponse("You're looking at url %s" % short_url)

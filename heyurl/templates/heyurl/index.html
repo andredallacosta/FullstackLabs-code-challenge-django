@@ -57,7 +57,7 @@
                   <tbody>
                     {% for url in urls %}
                       <tr>
-                        <td><a href="/{{ url.short_url }}">/{{ url.short_url }}</a></td>
+                        <td><a href="/u/{{ url.short_url }}">/{{ url.short_url }}</a></td>
                         <td>{{ url.original_url }}</td>
                         <td>{{ url.created_at }}</td>
                         <td>{{ url.clicks|intcomma }}</td>

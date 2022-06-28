@@ -37,11 +37,11 @@ def store(request):
 
 
 def short_url(request, short_url):
-    # FIXME: Do the logging to the db of the click with the user agent and browser
     try:
         url_instance = Url.objects.get(short_url=short_url)
     except Url.DoesNotExist:
-        return HttpResponse("URL not found")
+        context = {'url': short_url}
+        return render(request, 'heyurl/short_url_not_found.html', context)
 
     url_instance.clicks += 1
     url_instance.save()

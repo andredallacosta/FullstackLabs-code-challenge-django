@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.db import IntegrityError
 import validators
 
 from .models import (
@@ -24,10 +25,13 @@ def store(request):
     if not validators.url(original_url):
         return HttpResponse("Invalid url")
 
-    Url.objects.create(
-        original_url=original_url,
-        short_url=short_url_generator()
-    )
+    try:
+        Url.objects.create(
+            original_url=original_url,
+            short_url=short_url_generator()
+        )
+    except IntegrityError:
+        return HttpResponse("Url already exists in the database")
 
     return HttpResponse("Storing a new URL object into storage")
 

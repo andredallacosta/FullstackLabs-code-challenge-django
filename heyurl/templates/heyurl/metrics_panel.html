@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Short URL not found!</title>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'heyurl/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'heyurl/style.css' %}">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-sm-4">
+      <a class="navbar-brand" href="/">HeyURL!</a>
+    </nav>
+    <div class="container">
+      <div class="row flex-column justify-content-center align-items-center">
+        <h1>
+          Metrics panel for "{{ url.short_url }}"
+        </h1>
+      </div>
+    </div>
+
+    <div class="container-fluid mt-5">
+      <div class="row">
+        <div class="col-2 offset-sm-3">
+          <div class="card mb-sm-4">
+            <div class="card-header text-center">
+              Most used browser
+            </div>
+            <div class="card-body">
+              {% if most_used_browser %}
+                {% load humanize %}
+                <table class="table">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th class="text-center" scope="col">Browser</th>
+                      <th class="text-center" scope="col">Clicks</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="text-center">{{ most_used_browser.browser }}</td>
+                      <td class="text-center">{{ most_used_browser.count }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              {% else %}
+              <div class="alert alert-light" role="alert">
+                There are no clicks for this month.
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-2">
+          <div class="card mb-sm-4">
+            <div class="card-header text-center">
+              Total clicks this month
+            </div>
+            <div class="card-body text-center">
+              <h2>{{ clicks_count }}</h2>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-2">
+          <div class="card mb-sm-4">
+            <div class="card-header text-center">
+              Most used platform
+            </div>
+            <div class="card-body">
+              {% if most_used_platform %}
+                {% load humanize %}
+                <table class="table">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th class="text-center" scope="col">Browser</th>
+                      <th class="text-center" scope="col">Clicks</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="text-center">{{ most_used_platform.platform }}</td>
+                      <td class="text-center">{{ most_used_platform.count }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+              {% else %}
+              <div class="alert alert-light" role="alert">
+                There are no clicks for this month.
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-4 offset-sm-4">
+          <div class="card mb-sm-4">
+            <div class="card-header text-center">
+              Clicks of current month
+            </div>
+            <div class="card-body">
+              {% if clicks_per_day %}
+                {% load humanize %}
+                <table class="table">
+                  <thead class="thead-dark">
+                    <tr>
+                      <th class="text-center" scope="col">Day</th>
+                      <th class="text-center" scope="col">Clicks</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for click in clicks_per_day %}
+                      <tr>
+                        <td class="text-center">{{ click.created_at__day }}</td>
+                        <td class="text-center">{{ click.clicks }}</td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              {% else %}
+              <div class="alert alert-light" role="alert">
+                There are no clicks for this month.
+              </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

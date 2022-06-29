@@ -1,4 +1,19 @@
-# HeyURL! Code Challenge (Django)
+# FullStack Labs. Hey URL
+
+This project is a code challenge, provided by [FullStack Labs.](https://www.fullstacklabs.co/).
+
+## How to run
+
+First of all, you will need Docker to run this app. 
+
+Clone this repo, and go to the root folder in a terminal instance. All you have to do is run `make run` command.
+
+The project can be accessed by url http://localhost:8000
+ 
+<br /> <br />
+
+# Original Readme:
+## HeyURL! Code Challenge (Django)
 
 This repository has been created as a code challenge for candidates with
 FullStack Labs. The candidate will clone and setup an existing Django

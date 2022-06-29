@@ -11,8 +11,8 @@ freeze_requirements:
 		pip freeze > requirements.txt
 
 run:
-		python3 manage.py runserver
+		docker-compose up
 
 migrate:
-		python3 manage.py makemigrations
-		python3 manage.py migrate
+		docker-compose run web python3 manage.py makemigrations
+		docker-compose run web python3 manage.py migrate
